@@ -17,12 +17,12 @@ describe('Images API', () => {
   const testImage2 = {title: 'Great Pic2', url: '//imagePath/images/testImage2.png', caption: 'What a shot!'};
 
 
-  it('POSTS an image', done => {
+  it('POSTS an image and sends back to user', done => {
     req.post('/images')
       .send(testImage)
       .then((res) => {
         assert.ok(res.body._id);
-        testMovie._id = res.body._id;
+        testImage._id = res.body._id;
         done();
       })
       .catch(done);
@@ -32,7 +32,7 @@ describe('Images API', () => {
     req.get('/images')
       .then(res => {
         assert.ok(res.body);
-        assert.deepEqual(res.body, testMovie);
+        assert.deepEqual(res.body[0], testImage);
         done();
       })
       .catch(done);
@@ -49,7 +49,7 @@ describe('Images API', () => {
   it('404s on unsupported HTTP verb', done => {
     req.put('/images')
     .end((err, res) => {
-      expect(res).to.have.status(404);
+      expect(res).to.have.status(405);
       done();
     });
   });

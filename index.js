@@ -1,5 +1,5 @@
 const app = require('./lib/app');
-require( './lib/mongoose-setup' );
+require( './lib/setup-mongoose' );
 
 const port = process.env.PORT || 3000;
 
